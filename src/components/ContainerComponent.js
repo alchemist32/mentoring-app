@@ -9,18 +9,35 @@ function ContainerComponent() {
   const [results, setResults] = useState([]);
   const noData = <h2 className="no-data">Search to get the movies</h2>;
   let movies = [];
-  useEffect(() => {
-    const timeOutId = setTimeout(() => setSearch(queries), 500);
-    return () => clearTimeout(timeOutId);
-  });
+  // useEffect(() => {
+  //   const timeOutId = setTimeout(() => setSearch(queries), 500);
+  //   return () => clearTimeout(timeOutId);
+  // });
 
   useEffect(() => {
-    retrieveReuslts(search)
-      .then((response) => {
-        setResults(response.d);
-      })
-      .catch((error) => console.log('Error', error));
-  }, [search]);
+    let time = null;
+    // retrieveReuslts(search)
+    //   .then((response) => {
+    //     setResults(response.d);
+    //   })
+    //   .catch((error) => console.log('Error', error));
+    const getMovies = async () => {
+      const response = await retrieveReuslts(queries);
+      setResults(response?.d ?? []);
+    };
+
+    if (queries) {
+      time = setTimeout(() => getMovies(), 500);
+    } else {
+      setResults([]);
+    }
+
+    return () => {
+      if (time) {
+        clearTimeout(time);
+      }
+    };
+  }, [queries]);
 
   movies = results.map((result) => <PosterComponent results={result} />);
   return (
