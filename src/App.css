@@ -38,10 +38,20 @@ body {
 
 .header > section {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1024px;
   margin: auto;
   padding: 0;
   font-family: "Montserrat", sans-serif;
+}
+
+.header > section a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.header > section a:hover {
+  color: #92bde7;
+  font-weight: bold;
 }
 
 .search-box {
@@ -68,7 +78,7 @@ body {
 
 .poster-grid {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1024px;
   height: calc(100vh - 172px);
   margin: 24px auto auto 0;
   padding-right: 16px;
@@ -92,9 +102,60 @@ body {
   font-weight: bold;
 }
 
+.poster-label a {
+  color: #fff;
+  text-decoration: none;
+}
+.poster-label a:hover {
+  color: #92bde7;
+  font-weight: bold;
+}
+
 .image-full {
   width: 100%;
   height: 350px;
   object-fit: cover;
   border-radius: 8px 8px 0 0;
+}
+
+.page-container {
+  width: 100%;
+  max-width: 1024px;
+  padding: 16px;
+  margin: auto;
+}
+
+.cover-container {
+  width: 100%;
+  display: flex;
+  padding: 8px 0;
+}
+
+.cover-container .cover {
+  width: 350px;
+  object-fit: cover;
+}
+
+.cover-container .cover-texts {
+  padding: 0 16px;
+  color: #fff;
+  width: calc(100% - 350px);
+}
+
+.genres {
+  width: 100%;
+}
+
+.genres span {
+  margin-right: 8px;
+}
+
+.badge {
+  padding: 8px;
+  border-radius: 8px;
+  background-color: #4e5874;
+}
+
+.margin-right-2 {
+  margin-right: .5em;
 }

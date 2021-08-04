@@ -5,22 +5,11 @@ import axios from 'axios';
 
 function ContainerComponent() {
   const [queries, setQueries] = useState('');
-  const [search, setSearch] = useState('');
   const [results, setResults] = useState([]);
   const noData = <h2 className="no-data">Search to get the movies</h2>;
   let movies = [];
-  // useEffect(() => {
-  //   const timeOutId = setTimeout(() => setSearch(queries), 500);
-  //   return () => clearTimeout(timeOutId);
-  // });
-
   useEffect(() => {
     let time = null;
-    // retrieveReuslts(search)
-    //   .then((response) => {
-    //     setResults(response.d);
-    //   })
-    //   .catch((error) => console.log('Error', error));
     const getMovies = async () => {
       const response = await retrieveReuslts(queries);
       setResults(response?.d ?? []);
@@ -39,7 +28,9 @@ function ContainerComponent() {
     };
   }, [queries]);
 
-  movies = results.map((result) => <PosterComponent results={result} />);
+  movies = results.map((result, i) => (
+    <PosterComponent results={result} key={i} />
+  ));
   return (
     <div className="container">
       <SearchBoxComponent change={setQueries} queries={queries} />
