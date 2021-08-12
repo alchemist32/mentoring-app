@@ -1,11 +1,11 @@
 // @flow
 import './App.css';
-import React from 'react';
+import React, { Suspense } from 'react';
 import ContainerComponent from './components/ContainerComponent';
 import HeaderComponent from './components/HeaderComponent';
 import MoviePageComponent from './components/MoviePageComponent';
 
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 export default class App extends React.Component<{}> {
   render(): React$Element<'div'> {
@@ -15,9 +15,9 @@ export default class App extends React.Component<{}> {
           <HeaderComponent />
           <Switch>
             <Route path="/movie/:resultId">
-              <div className="App">
+              <Suspense fallback={<h2>Loading...</h2>}>
                 <MoviePageComponent />
-              </div>
+              </Suspense>
             </Route>
             <Route path="/">
               <ContainerComponent />

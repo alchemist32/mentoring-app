@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import { getMovieDetails } from '../services/IMDBService';
 
 // How make two or more requests??
 function MoviePageComponent() {
@@ -9,7 +9,7 @@ function MoviePageComponent() {
 
   useEffect(() => {
     const detailsResponse = async () => {
-      const response = await getDetails(resultId);
+      const response = await getMovieDetails(resultId);
       setDescription(response);
     };
     if (resultId) {
@@ -17,13 +17,12 @@ function MoviePageComponent() {
     } else {
       setDescription({});
     }
-  }, []);
+  }, [resultId]);
 
   let plot = null;
   let rated = null;
   const { plotSummary } = description;
   const { certificates } = description;
-  console.log('desc', plotSummary);
   if (plotSummary) {
     plot = plotSummary;
   }
@@ -55,28 +54,16 @@ function MoviePageComponent() {
           <hr />
           <section className="genres">
             <h4>Genres</h4>
-            {description?.genres?.map((genre) => (
-              <span className="badge">{genre}</span>
+            {description?.genres?.map((genre, idx) => (
+              <span className="badge" key={idx}>
+                {genre}
+              </span>
             ))}
           </section>
         </article>
       </div>
     </div>
   );
-}
-
-async function getDetails(titleId) {
-  const options = {
-    method: 'GET',
-    url: 'https://imdb8.p.rapidapi.com/title/get-overview-details',
-    params: { tconst: titleId },
-    headers: {
-      'x-rapidapi-key': process.env.REACT_APP_API_KEY,
-      'x-rapidapi-host': process.env.REACT_APP_API_HOST,
-    },
-  };
-
-  return (await axios.request(options)).data;
 }
 
 export default MoviePageComponent;
