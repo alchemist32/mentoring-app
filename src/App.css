@@ -1,12 +1,9 @@
 html,
 body {
   height: 100vh;
+  background-color: #303134;
 }
 
-#root {
-  background-color: #303134;
-  height: 100%;
-}
 
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Open+Sans&display=swap");
@@ -122,6 +119,7 @@ body {
   max-width: 1024px;
   padding: 16px;
   margin: auto;
+  box-sizing: border-box;
 }
 
 .cover-container {
@@ -157,4 +155,28 @@ body {
 
 .margin-right-2 {
   margin-right: .5em;
+}
+
+/* Loading Spinner */
+
+.loading-container {
+  margin: auto;
+  text-align: center;
+  color: #fafafa;
+}
+
+.loading-logo {
+  width: 180px;
+  pointer-events: none;
+  animation: Loading-logo-spin infinite 20s linear;
+}
+
+
+@keyframes Loading-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

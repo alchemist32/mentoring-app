@@ -47,7 +47,11 @@ function MoviePageComponent() {
         )}
       </p>
       <div className="cover-container">
-        <img className="cover" src={description?.title?.image?.url} />
+        <img
+          className="cover"
+          src={description?.title?.image?.url}
+          alt="cover image"
+        />
         <article className="cover-texts">
           <h3>Description</h3>
           <p>{plot?.text ? plot?.text : 'No description'}</p>
