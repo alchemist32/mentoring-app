@@ -1,47 +1,52 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieDetails } from '../services/IMDBService';
+import LoadingComponent from '../components/LoadingComponent';
 
 // How make two or more requests??
 function MoviePageComponent() {
   const { resultId } = useParams();
   const [description, setDescription] = useState({});
 
-  useEffect(() => {
-    const detailsResponse = async () => {
-      const response = await getMovieDetails(resultId);
-      setDescription(response);
-    };
-    if (resultId) {
-      detailsResponse();
-    } else {
-      setDescription({});
-    }
-  }, [resultId]);
+  MoviePageEffect(resultId, setDescription);
 
-  let plot = null;
-  let rated = null;
-  const { plotSummary } = description;
-  const { certificates } = description;
-  if (plotSummary) {
-    plot = plotSummary;
+  let template = null;
+  if (description.title) {
+    template = (
+      <MovieTemplate movieDescription={mappingMovieDescription(description)} />
+    );
+  } else {
+    template = <LoadingComponent />;
   }
+  return template;
+}
 
-  if (certificates) {
-    rated = certificates.US[0];
-  }
+function mappingMovieDescription(movieDescription) {
+  return {
+    title: movieDescription?.title?.title,
+    type: movieDescription?.title?.titleType,
+    year: movieDescription?.title?.year,
+    certificate: movieDescription?.certificates?.US[0]?.certificate,
+    cover: movieDescription?.title?.image?.url,
+    plot: movieDescription?.plotSummary?.text,
+    genres: movieDescription?.genres,
+  };
+}
+
+function MovieTemplate({ movieDescription }) {
+  console.log(movieDescription);
   return (
     <div className="page-container">
       <h2 style={{ color: '#fafafa', marginBottom: 8 }}>
-        {description?.title?.title}
+        {movieDescription?.title}
       </h2>
       <p style={{ color: '#fafafa' }}>
-        <span className="badge margin-right-2">
-          {description?.title?.titleType}
-        </span>
-        <span className="badge margin-right-2">{description?.title?.year}</span>
-        {rated?.certificates ? (
-          <span className="badge margin-right-2">{rated?.certificate}</span>
+        <span className="badge margin-right-2">{movieDescription?.type}</span>
+        <span className="badge margin-right-2">{movieDescription?.year}</span>
+        {movieDescription?.certificate ? (
+          <span className="badge margin-right-2">
+            {movieDescription?.certificate}
+          </span>
         ) : (
           ''
         )}
@@ -49,16 +54,18 @@ function MoviePageComponent() {
       <div className="cover-container">
         <img
           className="cover"
-          src={description?.title?.image?.url}
+          src={movieDescription?.cover}
           alt="cover image"
         />
         <article className="cover-texts">
           <h3>Description</h3>
-          <p>{plot?.text ? plot?.text : 'No description'}</p>
+          <p>
+            {movieDescription?.plot ? movieDescription?.plot : 'No description'}
+          </p>
           <hr />
           <section className="genres">
             <h4>Genres</h4>
-            {description?.genres?.map((genre, idx) => (
+            {movieDescription?.genres?.map((genre, idx) => (
               <span className="badge" key={idx}>
                 {genre}
               </span>
@@ -68,6 +75,23 @@ function MoviePageComponent() {
       </div>
     </div>
   );
+}
+
+function MoviePageEffect(
+  movieId: string,
+  setMovies: React.Dispatch<React.SetStateAction<{}>>
+) {
+  useEffect(() => {
+    const detailsResponse = async () => {
+      const response = await getMovieDetails(movieId);
+      setMovies(response);
+    };
+    if (movieId) {
+      detailsResponse();
+    } else {
+      setMovies({});
+    }
+  }, [movieId, setMovies]);
 }
 
 export default MoviePageComponent;
