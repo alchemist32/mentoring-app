@@ -1,0 +1,21 @@
+.user-card {
+  width: 100%;
+  border-radius: 16px;
+  border: solid 1px #c2c2c2;
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.user-card h5 {
+  width: 100%;
+}
+
+.user-card .user-img {
+  height: 128px;
+  width: 128px;
+  border-radius: 50%;
+}

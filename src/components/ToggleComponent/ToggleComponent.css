@@ -1,0 +1,11 @@
+.toggle-container {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.toggle-container label {
+  margin-right: 8px;
+}

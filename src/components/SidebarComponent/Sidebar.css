@@ -1,0 +1,37 @@
+.sidebar {
+  width: 300px;
+  height: 100%;
+  padding: 16px;
+  background-color: #fff;
+  border-right: solid 1px #c2c2c2;
+}
+
+.sidebar p {
+  text-align: center;
+}
+
+.links {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 60%;
+  margin: auto;
+  font-size: 24px;
+}
+
+.links a {
+  text-decoration: none;
+  color: #000;
+}
+
+.profile-img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 100px;
+}
+
+
+.white-links a {
+  color: #fff;
+}
